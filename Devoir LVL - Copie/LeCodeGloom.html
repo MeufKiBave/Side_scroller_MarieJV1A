@@ -28,9 +28,11 @@
         function preload(){
             //Chargement du perso
             this.load.spritesheet('perso','asset/perso.png',{ 
-                frameWidth: 32, frameHeight: 64 
+                frameWidth: 32, frameHeight: 58 
             });
-
+         //   this.load.image("background_1","asset/Background_1.bmp")
+         //   this.load.image("background","asset/Background.bmp")
+            this.load.image("background_levrai","asset/Background_levrai")
             this.load.image("Phaser_TILEDEDIT","asset/TILEDEDIT.png");
             this.load.tilemapTiledJSON("carte","asset/map.json");
             this.load.image('Bob', 'asset/Bob.png');
@@ -44,103 +46,134 @@
 
                 //Carte tuile
                 const tileset = carteDuNiveau.addTilesetImage(
-                "ets<stgg",
+                "lestuiles",
                 "Phaser_TILEDEDIT" );  
                 cursors = this.input.keyboard.createCursorKeys();
+          
+          
+                //Fond parallax echec total
+
+        /* this.leFondDuFondDuFond=this.add.tileSprite(0,0,800,800,"background_1");
+            this;leFondDuFondDuFond.setOrigin(0,0);
+            this;leFondDufondDuFond.setScrollFactor(0.2);
+
+            this.leFondDuFond=this.add.tileSprite(0,0,1600,1600,"background_levrai");
+            this.leFondDuFond.setOrigin(0,0);
+            this.leFondDuFond.setScrollFactor(0.0);
+
+        */
 
             //Calque Tiled//
-            constond_8 = carteDuNiveau.createLayer(
-                "Fond_8",
+            ////////////////////////////////
+        /* const fond_8 = carteDuNiveau.createLayer(
+                "fond_8",
                 tileset
                 ); 
 
             const fond_7 = carteDuNiveau.createLayer(
-                "Fond_7",
+                "fond_7",
                 tileset
                 ); 
 
             const fond_6 = carteDuNiveau.createLayer(
-                "Fond_6",
+                "fond_6",
                 tileset
-                ); 
+                );  
+        */
+            ///////////////////////////////////////////////   
+        
 
             const fond_5 = carteDuNiveau.createLayer(
-                "Fond_5",
+                "fond_5",
                 tileset
                 ); 
 
             const fond_4 = carteDuNiveau.createLayer(
-                "Fond_4",
+                "fond_4",
                 tileset
                 ); 
 
             const fond_3 = carteDuNiveau.createLayer(
-                "Fond_3",
+                "fond_3",
                 tileset
                 ); 
 
             const fond_2 = carteDuNiveau.createLayer(
-                "Fond_2",
+                "fond_2",
+                tileset
+                ); 
+
+            const fond_1a2 = carteDuNiveau.createLayer(
+                "fond_1a2",
                 tileset
                 ); 
 
             const fond_1 = carteDuNiveau.createLayer(
-                "Fond_1",
+                "fond_1",
                 tileset
                 ); 
 
             const pied_3 = carteDuNiveau.createLayer(
-                "Pied_3",
+                "pied_3",
                 tileset
                 ); 
 
             const pied_2 = carteDuNiveau.createLayer(
-                "Pied_2",
+                "pied_2",
                 tileset
                 ); 
 
             const pied_1 = carteDuNiveau.createLayer(
-                "Pied_1",
+                "pied_1",
                 tileset
                 ); 
-
             const zone_danger = carteDuNiveau.createLayer(
-                "Zone_danger",
+                "zone_danger",
                 tileset
                 ); 
                 
+            const exit = carteDuNiveau.createLayer(
+                "exit",
+                tileset 
+                );
+
             const eau = carteDuNiveau.createLayer(
-                "Eau",
+                "eau",
                 tileset
                 ); 
 
             const props = carteDuNiveau.createLayer(
-                "Props",
+                "props",
                 tileset
                 ); 
 
             const props_zone_2 = carteDuNiveau.createLayer(
-                "Props_zone_2",
+                "props_zone_2",
                 tileset
                 ); 
 
             const colisio = carteDuNiveau.createLayer(
-                "Colisio",
+                "colisio",
                 tileset
                 ); 
 
             const plateforme = carteDuNiveau.createLayer(
-                "Plateforme",
+                "plateforme",
                 tileset
                 ); 
                 
             const herbe = carteDuNiveau.createLayer(
-                "Herbe",
+                "herbe",
                 tileset
                 );
             
             const collectble = carteDuNiveau.createLayer(
                 "collectble",
+                tileset 
+                );
+
+            const sun = carteDuNiveau.createLayer(
+                "sun",
                 tileset 
                 );
             
@@ -181,20 +214,14 @@
                     this.physics.add.collider(player, plateforme, colisio); 
 
                 //Camera
-      /*  this.cameras.main.setSize(400, 300);
+          // redimensionnement du monde avec les dimensions calculées via tiled
+                    this.physics.world.setBounds(0, 0, 1600, 1600);
+                    //  ajout du champs de la caméra de taille identique à celle du monde
+                    this.cameras.main.setBounds(0, 0, 1600, 1600);
+                    // ancrage de la caméra sur le joueur
+                    this.cameras.main.startFollow(player);
+                    this.cameras.main.setZoom(1.5);
 
-            const cam2 = this.cameras.add(400, 0, 400, 300);
-            const cam3 = this.cameras.add(0, 300, 400, 300);
-            const cam4 = this.cameras.add(400, 300, 400, 300);
-
-            this.perso = this.add.image(450 + Math.cos(this.iter) * 200, 510 + Math.sin(this.iter) * 200, 'perso');
-
-            this.cameras.main.startFollow(this.perso);
-
-            cam2.startFollow(this.perso, false, 0.5, 0.5);
-            cam3.startFollow(this.perso, false, 0.1, 0.1);
-            cam4.startFollow(this.perso, false, 0.05, 0.05);
-*/
         };
 
         function update(){
@@ -213,14 +240,15 @@
             player.setVelocityX(0);
         }
 
-        if(cursors.up.isDown && player.body.touching.down){
+        if(cursors.up.isDown && player.body.blocked.down){
             player.setVelocityY(-330);
         } 
 
             
         }
         //A faire:
-            //Bob le vilain
+            //Deffinir les zones de danger avec un calque objet
+            //Bobby et bobba les vilain
             //Perte de vie
             //Gain de vie
             //Score
